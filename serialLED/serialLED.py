@@ -11,7 +11,7 @@ def main():
     ser = serial.Serial('/dev/tty.usbmodem1411', 9600, timeout=1)
     while True:
         flag = raw_input()
-        ser.write(flag)
+        ser.write(flag+".")
         if(flag == 'a'): # aが入力されたら通信終了
             break;
     ser.close()

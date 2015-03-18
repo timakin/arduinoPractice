@@ -1,3 +1,6 @@
+char input[30];
+int i = 0;
+
 void setup() {
   // put your setup code here, to run once:
   pinMode(13, OUTPUT);
@@ -6,18 +9,18 @@ void setup() {
 }
 
 void loop() {
-  int inputchar;
-  inputchar = Serial.read();
-  
-  if(inputchar != -1) {
-    switch(inputchar) {
-      case 's':
-        digitalWrite(13, HIGH);
-        break;
-      case 'q':
+  if (Serial.available()) {
+    input[i] = Serial.read();
+    if(i>30 || input[i] == '.') {
+      input[i] = '\0';
+      if(String(input)=="on"){
+        digitalWrite(13,HIGH);
+      } 
+      else if (String(input)=="off") {
         digitalWrite(13, LOW);
-        break;
+      }
+      i = 0;
     }
-  } else {
+    else { i++; }
   }
 }
